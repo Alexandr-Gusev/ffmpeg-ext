@@ -100,6 +100,9 @@ const AVOption ff_rtsp_options[] = {
     { NULL },
 };
 
+const char *play_range_header = 0;
+const char *play_scale_header = 0;
+
 static const AVOption sdp_options[] = {
     RTSP_FLAG_OPTS("sdp_flags", "SDP flags"),
     { "custom_io", "use custom I/O", 0, AV_OPT_TYPE_CONST, {.i64 = RTSP_FLAG_CUSTOM_IO}, 0, 0, DEC, "rtsp_flags" },
@@ -1541,7 +1544,8 @@ int ff_rtsp_make_setup_request(AVFormatContext *s, const char *host, int port,
                         rt->session_id, real_res, real_csum);
         }
         ff_rtsp_send_cmd(s, "SETUP", rtsp_st->control_url, cmd, reply, NULL);
-        if (reply->status_code == 461 /* Unsupported protocol */ && i == 0) {
+	av_log(s, AV_LOG_VERBOSE, "Session: %s\n", reply->session_id);
+	if (reply->status_code == 461 /* Unsupported protocol */ && i == 0) {
             err = 1;
             goto fail;
         } else if (reply->status_code != RTSP_STATUS_OK ||

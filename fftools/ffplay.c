@@ -46,6 +46,7 @@
 #include "libavutil/opt.h"
 #include "libavcodec/avfft.h"
 #include "libswresample/swresample.h"
+#include "libavformat/rtsp.h"
 
 #if CONFIG_AVFILTER
 # include "libavfilter/avfilter.h"
@@ -3560,6 +3561,8 @@ static const OptionDef options[] = {
     { "vst", OPT_STRING | HAS_ARG | OPT_EXPERT, { &wanted_stream_spec[AVMEDIA_TYPE_VIDEO] }, "select desired video stream", "stream_specifier" },
     { "sst", OPT_STRING | HAS_ARG | OPT_EXPERT, { &wanted_stream_spec[AVMEDIA_TYPE_SUBTITLE] }, "select desired subtitle stream", "stream_specifier" },
     { "ss", HAS_ARG, { .func_arg = opt_seek }, "seek to a given position in seconds", "pos" },
+    { "play_range_header", OPT_STRING | HAS_ARG, { &play_range_header }, "play_range_header", "play_range_header" },
+    { "play_scale_header", OPT_STRING | HAS_ARG, { &play_scale_header }, "play_scale_header", "play_scale_header" },
     { "t", HAS_ARG, { .func_arg = opt_duration }, "play  \"duration\" seconds of audio/video", "duration" },
     { "bytes", OPT_INT | HAS_ARG, { &seek_by_bytes }, "seek by bytes 0=off 1=on -1=auto", "val" },
     { "nodisp", OPT_BOOL, { &display_disable }, "disable graphical display" },

@@ -639,4 +639,7 @@ int ff_rtsp_open_transport_ctx(AVFormatContext *s, RTSPStream *rtsp_st);
 
 extern const AVOption ff_rtsp_options[];
 
+extern const char *play_range_header;
+extern const char *play_scale_header;
+
 #endif /* AVFORMAT_RTSP_H */

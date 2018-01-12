@@ -1,0 +1,1 @@
+ffplay rtsp://172.20.44.45:555/archiveurlrtspctrl/302582043206133/ -play_range_header clock=20171204T083245Z-20171204T083500Z -play_scale_header 1 -loglevel verbose
