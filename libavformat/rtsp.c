@@ -1063,6 +1063,7 @@ void ff_rtsp_parse_line(AVFormatContext *s,
 
     /* NOTE: we do case independent match for broken servers */
     p = buf;
+	av_log(s, AV_LOG_VERBOSE, "%s\n", buf);
     if (av_stristart(p, "Session:", &p)) {
         int t;
         get_word_sep(reply->session_id, sizeof(reply->session_id), ";", &p);
@@ -1544,8 +1545,7 @@ int ff_rtsp_make_setup_request(AVFormatContext *s, const char *host, int port,
                         rt->session_id, real_res, real_csum);
         }
         ff_rtsp_send_cmd(s, "SETUP", rtsp_st->control_url, cmd, reply, NULL);
-	av_log(s, AV_LOG_VERBOSE, "Session: %s\n", reply->session_id);
-	if (reply->status_code == 461 /* Unsupported protocol */ && i == 0) {
+        if (reply->status_code == 461 /* Unsupported protocol */ && i == 0) {
             err = 1;
             goto fail;
         } else if (reply->status_code != RTSP_STATUS_OK ||
